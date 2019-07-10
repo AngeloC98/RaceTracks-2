@@ -5,7 +5,10 @@ using Microsoft.Xna.Framework.Input;
 namespace Racetracks
 {
     class Car : Body
-    { 
+    {
+        private float force = 5;
+        private float turnSpeed = 0.25f;
+
         /// <summary>Creates a user controlled Car</summary>        
         public Car(Vector2 position) : base(position, "car")
         {
@@ -21,6 +24,22 @@ namespace Racetracks
         /// <summary>Handle user input for this Car</summary>        
         public override void HandleInput(InputHelper inputHelper)
         {
+            if (inputHelper.IsKeyDown(Keys.A))
+            {
+                Angle -= turnSpeed / force;
+            }
+            if (inputHelper.IsKeyDown(Keys.D))
+            {
+                Angle += turnSpeed / force;
+            }
+            if (inputHelper.IsKeyDown(Keys.W))
+            {
+                addForce(Forward * force);
+            }
+            if (inputHelper.IsKeyDown(Keys.S))
+            {
+                addForce(Forward * -force);
+            }
             base.HandleInput(inputHelper);
         }
 

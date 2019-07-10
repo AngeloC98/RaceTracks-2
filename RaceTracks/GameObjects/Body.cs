@@ -8,6 +8,7 @@ namespace Racetracks
     class Body : RotatingSpriteGameObject
     {
         protected float radius;
+        private float drag = 0.99f;
         private Vector2 acceleration = Vector2.Zero;
         private float invMass = 1.0f; //set indirectly by setting 'mass'
                 
@@ -24,6 +25,13 @@ namespace Racetracks
         /// <summary>Updates this Body</summary>        
         public override void Update(GameTime gameTime)
         {
+            velocity += acceleration;
+            acceleration = Vector2.Zero;
+            velocity *= drag;
+
+            velocity.X = MathHelper.Clamp(velocity.X, -300, 300);
+            velocity.Y = MathHelper.Clamp(velocity.Y, -300, 300);
+
             base.Update(gameTime);
         }
 
@@ -86,6 +94,11 @@ namespace Racetracks
             {
                 Angle = (float)Math.Atan2(-value.X, value.Y); //polar to angle
             }
+        }
+
+        public void addForce(Vector2 force)
+        {
+            acceleration += force;
         }
         
     }
