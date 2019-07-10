@@ -6,8 +6,10 @@ namespace Racetracks
 {
     class Car : Body
     {
-        private float force = 5;
-        private float turnSpeed = 0.25f;
+        private float carForce = 25000;
+        private float turnSpeed = 0.04f;
+        private float maxSpeed = 300;
+
 
         /// <summary>Creates a user controlled Car</summary>        
         public Car(Vector2 position) : base(position, "car")
@@ -18,6 +20,11 @@ namespace Racetracks
         /// <summary>Updates this Car</summary>        
         public override void Update(GameTime gameTime)
         {
+            if (velocity.Length() > maxSpeed)
+            {
+                velocity.Normalize();
+                velocity *= maxSpeed;
+            }
             base.Update(gameTime);
         }
 
@@ -26,19 +33,19 @@ namespace Racetracks
         {
             if (inputHelper.IsKeyDown(Keys.A))
             {
-                Angle -= turnSpeed / force;
+                Angle -= turnSpeed + velocity.Length() / carForce;
             }
             if (inputHelper.IsKeyDown(Keys.D))
             {
-                Angle += turnSpeed / force;
+                Angle += turnSpeed + velocity.Length() / carForce;
             }
             if (inputHelper.IsKeyDown(Keys.W))
             {
-                addForce(Forward * force);
+                Force = new Vector2(carForce);
             }
             if (inputHelper.IsKeyDown(Keys.S))
             {
-                addForce(Forward * -force);
+                Force = new Vector2(-carForce);
             }
             base.HandleInput(inputHelper);
         }

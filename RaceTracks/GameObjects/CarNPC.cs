@@ -10,7 +10,7 @@ namespace Racetracks
         private Waypoints waypoints;
         private float offset;
         private float speed;
-        
+
         /// <summary>Creates a waypoint driven Car</summary>        
         public CarNPC(Vector2 position, float speed, float offset) : base(position, "car2")
         {
@@ -18,6 +18,7 @@ namespace Racetracks
             waypoints = new Waypoints();
             this.offset = offset;
             this.speed = speed;
+
         }
         
         /// <summary>Updates this Car</summary>        
