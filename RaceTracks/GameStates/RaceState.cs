@@ -6,7 +6,7 @@ using System;
 namespace Racetracks {
     class RaceState : GameObjectList{
         private Car player;
-        private GameObjectList bodies; 
+        public GameObjectList bodies; 
 
         /// <summary>
         /// RaceState constructor which adds the different gameobjects and lists in the correct order of drawing.
@@ -43,6 +43,23 @@ namespace Racetracks {
 
             //reposition screen to follow the player with 'camera'
             position = GameEnvironment.Screen.ToVector2() * 0.5f - player.Position;
+
+            foreach (Body body in bodies.Children)
+            {
+                foreach (Body body2 in bodies.Children)
+                {
+                    if (body != body2 && body.Visible && body2.Visible)
+                    {
+
+                        if (body.CollidesWith(body2))
+                        {
+                            body.CollisionHandling(body2);
+                            Console.WriteLine("\n\nBody:" + body.Position + "\nBody2:" + body2.Position);
+                            Console.WriteLine(bodies.Children.Count);
+                        }
+                    }
+                }
+            }
         }
     }
 }

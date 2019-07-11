@@ -213,8 +213,8 @@ namespace Racetracks
             centerPoint = Vector2.Transform(centerPoint, Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)));
             item.Position = new Vector2(x, y) + centerPoint;
             item.Degrees = rotation;
-            
-            racetrack.Add(item);
+
+            racetrack.bodies.Add(item);
         }
     }
 }

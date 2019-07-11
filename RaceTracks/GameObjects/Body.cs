@@ -28,6 +28,7 @@ namespace Racetracks
         {
             velocity += Acceleration;
             Force = Vector2.Zero;
+
             base.Update(gameTime);
         }
 
@@ -127,6 +128,29 @@ namespace Racetracks
                 return TotalForce / Mass;
             }
             
+        }
+        public void CollisionHandling(Body body)
+        {
+            Vector2 normal = body.position - position;
+            normal.Normalize();
+
+            float distance = Vector2.Distance(position, body.position) - (radius + body.radius);
+            Vector2 resizedDifferenceVector = normal * distance; 
+
+            if (distance < 0)
+            {
+                position += 0.5f * resizedDifferenceVector;
+                body.position -= 0.5f * resizedDifferenceVector;
+            }
+
+            Vector2 velocityDif = velocity - body.velocity;
+            Vector2 parallelComponent = Vector2.Dot(velocityDif, normal) * normal;
+            float totalMass = invMass + body.invMass;
+
+            parallelComponent /= totalMass;
+
+            velocity -= parallelComponent * invMass;
+            body.velocity += parallelComponent * body.invMass;
         }
     }
 }

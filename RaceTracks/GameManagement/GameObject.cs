@@ -105,7 +105,7 @@ public abstract class GameObject : IGameLoopObject
 
     public bool Visible
     {
-        get { return visible; }
+        get { return GlobalPosition.X > 0 && GlobalPosition.X < GameEnvironment.Screen.X && GlobalPosition.Y > 0 && GlobalPosition.Y < GameEnvironment.Screen.Y; }
         set { visible = value; }
     }
 
