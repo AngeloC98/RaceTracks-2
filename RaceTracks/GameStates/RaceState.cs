@@ -6,6 +6,7 @@ using System;
 namespace Racetracks {
     class RaceState : GameObjectList{
         private Car player;
+        private Barrel barrel;
         public GameObjectList bodies; 
 
         /// <summary>
@@ -20,6 +21,8 @@ namespace Racetracks {
 
             //create user controlled car
             bodies.Add(player = new Car(new Vector2(920, 1400))); //hardcoded position data from 'Tiled'
+
+            bodies.Add(barrel = new Barrel(new Vector2(1000, 1600)));
 
             //create four opponents
             for (int i = 0; i < 4; i++) {

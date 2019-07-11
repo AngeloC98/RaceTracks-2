@@ -62,6 +62,7 @@
     <Compile Include="GameObjects\Car.cs" />
     <Compile Include="GameObjects\CarNPC.cs" />
     <Compile Include="GameObjects\LevelLoader.cs" />
+    <Compile Include="GameObjects\Barrel.cs" />
     <Compile Include="GameObjects\Waypoints.cs" />
     <Compile Include="GameStates\RaceState.cs" />
     <Compile Include="Program.cs" />
