@@ -10,6 +10,8 @@ namespace Racetracks
         private Waypoints waypoints;
         private float offset;
         private float speed;
+        private float carForce = 10000;
+        private float turnSpeed = 0.3f;
 
         /// <summary>Creates a waypoint driven Car</summary>        
         public CarNPC(Vector2 position, float speed, float offset) : base(position, "car2")
@@ -18,7 +20,6 @@ namespace Racetracks
             waypoints = new Waypoints();
             this.offset = offset;
             this.speed = speed;
-
         }
         
         /// <summary>Updates this Car</summary>        
@@ -28,6 +29,14 @@ namespace Racetracks
 
             Vector2 target = waypoints.GetTarget(position); //read from 'Tiled' data
             target.Y += offset; //so cars don't follow same track
+
+            Vector2 wpDirection = target - position;
+            wpDirection.Normalize();
+
+            float direction = Vector2.Dot(Forward, wpDirection);
+            Forward = Vector2.SmoothStep(Forward, wpDirection, turnSpeed);
+
+            Force = new Vector2(carForce);
         }
         
     }
