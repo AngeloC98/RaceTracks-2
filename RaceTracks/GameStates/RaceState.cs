@@ -54,8 +54,6 @@ namespace Racetracks {
                         if (body.CollidesWith(body2))
                         {
                             body.CollisionHandling(body2);
-                            Console.WriteLine("\n\nBody:" + body.Position + "\nBody2:" + body2.Position);
-                            Console.WriteLine(bodies.Children.Count);
                         }
                     }
                 }
